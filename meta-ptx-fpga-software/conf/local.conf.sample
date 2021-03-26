@@ -15,7 +15,7 @@
 # Machine Selection
 #
 # This sets the default machine to be qemux86-64 if no other machine is selected:
-MACHINE ??= "ecpix-ecp5"
+MACHINE ??= "ecpix5"
 
 #
 # Where to place downloads

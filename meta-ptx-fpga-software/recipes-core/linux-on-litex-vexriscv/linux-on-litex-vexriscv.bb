@@ -7,7 +7,7 @@ LICENSE = "BSD-2-Clause"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/BSD-2-Clause;md5=cb641bc04cda31daea161b1bc15da69f"
 
 SRC_URI = "git://github.com/litex-hub/linux-on-litex-vexriscv;protocol=https"
-SRCREV = "ad398759b5aba7cc2c12aac5355cf3600599b7ff"
+SRCREV = "bc895b14f26b57e08f6927f41f069d33609c9550"
 PV = "0+git${SRCPV}"
 
 S = "${WORKDIR}/git"
@@ -47,14 +47,14 @@ do_configure() {
 }
 
 do_compile() {
-    ${S}/make.py --board ecpix_ecp5 --build
+    ${S}/make.py --board ecpix5 --build
 }
 
 do_install[noexec] = "1"
 
 do_deploy () {
-    install -Dm 0644 ${B}/build/ecpix_ecp5/gateware/ecpix_ecp5.bit ${DEPLOYDIR}/top.bit
-    install -Dm 0644 ${B}/build/ecpix_ecp5/gateware/ecpix_ecp5.svf ${DEPLOYDIR}/top.svf
+    install -Dm 0644 ${B}/build/ecpix5/gateware/ecpix5.bit ${DEPLOYDIR}/top.bit
+    install -Dm 0644 ${B}/build/ecpix5/gateware/ecpix5.svf ${DEPLOYDIR}/top.svf
     install -Dm 0655 ${B}/images/rv32.dtb ${DEPLOYDIR}/rv32.dtb
 
     # rewrite paths in boot.json for use from deploy dir
@@ -66,7 +66,7 @@ do_deploy () {
 addtask deploy before do_build after do_install
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
-COMPATIBLE_MACHINE = "ecpix-ecp5"
+COMPATIBLE_MACHINE = "ecpix5"
 
 # include terminal to run the simulator on the user terminal
 inherit terminal
@@ -137,7 +137,7 @@ do_load[dirs] += "${B}"
 do_load[depends] += "openocd-native:do_populate_sysroot"
 do_load[nostamp] = "1"
 do_load() {
-    ${S}/make.py --board ecpix_ecp5 --load
+    ${S}/make.py --board ecpix5 --load
 }
 addtask load after do_compile
 

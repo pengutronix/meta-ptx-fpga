@@ -7,4 +7,4 @@ PV = "0.8+litex+git${SRCPV}"
 
 SYSROOT_DIRS += "/share/opensbi"
 
-COMPATIBLE_MACHINE = "ecpix-ecp5"
+COMPATIBLE_MACHINE = "ecpix5"
