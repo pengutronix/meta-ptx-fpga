@@ -31,7 +31,6 @@ DEPENDS += "litex-boards-native"
 DEPENDS += "litedram-native"
 DEPENDS += "liteeth-native"
 DEPENDS += "litevideo-native"
-DEPENDS += "litescope-native"
 DEPENDS += "litesdcard-native"
 
 # do not depend on libc or compiler libs, only the compiler is needed
@@ -47,14 +46,17 @@ do_configure() {
 }
 
 do_compile() {
+    mkdir -p ${S}/build
+    ln -sf lambdaconcept_ecpix5 ${S}/build/ecpix5
+
     ${S}/make.py --board ecpix5 --build
 }
 
 do_install[noexec] = "1"
 
 do_deploy () {
-    install -Dm 0644 ${B}/build/ecpix5/gateware/ecpix5.bit ${DEPLOYDIR}/top.bit
-    install -Dm 0644 ${B}/build/ecpix5/gateware/ecpix5.svf ${DEPLOYDIR}/top.svf
+    install -Dm 0644 ${B}/build/ecpix5/gateware/lambdaconcept_ecpix5.bit ${DEPLOYDIR}/top.bit
+    install -Dm 0644 ${B}/build/ecpix5/gateware/lambdaconcept_ecpix5.svf ${DEPLOYDIR}/top.svf
     install -Dm 0655 ${B}/images/rv32.dtb ${DEPLOYDIR}/rv32.dtb
 
     # rewrite paths in boot.json for use from deploy dir
@@ -123,6 +125,7 @@ python do_sim_check_boot() {
                 if s.expect("(.*?)\r\n", timeout = 60) == 0:
                     line = s.match.group(1).decode()
                     f.write(line + "\n")
+                    f.flush()
                     if "linux version" in line.casefold():
                         break
     except pexpect.exceptions.TIMEOUT:
