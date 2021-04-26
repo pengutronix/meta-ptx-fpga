@@ -1,3 +1,6 @@
+SRC_URI = "git://github.com/jluebbe/linux-on-litex-vexriscv;protocol=https"
+SRCREV = "5f2325c3db1f257de6b6474dd75e42c3b70b6420"
+
 do_compile() {
     mkdir -p ${S}/build
     ln -sf lambdaconcept_ecpix5 ${S}/build/ecpix5
