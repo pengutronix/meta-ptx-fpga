@@ -48,7 +48,6 @@ do_configure() {
 }
 
 do_compile() {
-    #${S}/make.py --board ecpix5 --cpu-count 2 --build
     ${S}/make.py --board ecpix5 --cpu-count 2 --build
 }
 
