@@ -15,7 +15,7 @@ COMPATIBLE_MACHINE = "ecpix5.*"
 S = "${WORKDIR}/git"
 
 BRANCH = "litex-rebase"
-SRCREV = "060dc05af90823c3b5b2eea7423c48fb4e8c2bf6"
+SRCREV = "1d95231d123f1063846396883bc6dff1377b2936"
 PV = "5.12+${SRCPV}"
 SRC_URI = " \
     git://github.com/litex-hub/linux.git;protocol=https;branch=${BRANCH} \
