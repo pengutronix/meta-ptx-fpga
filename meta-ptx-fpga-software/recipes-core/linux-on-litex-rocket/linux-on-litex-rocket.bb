@@ -38,20 +38,5 @@ DEPENDS_remove = "virtual/${TARGET_PREFIX}compilerlibs virtual/libc"
 # prevent the population of the build-id section into the output
 CC += "-Wl,--build-id=none"
 
-do_install[noexec] = "1"
-
-do_deploy () {
-    install -Dm 0644 ${B}/build/ecpix5/gateware/lambdaconcept_ecpix5.bit ${DEPLOYDIR}/top.bit
-    install -Dm 0644 ${B}/build/ecpix5/gateware/lambdaconcept_ecpix5.svf ${DEPLOYDIR}/top.svf
-    install -Dm 0655 ${B}/images/rv32.dtb ${DEPLOYDIR}/rv32.dtb
-
-    # rewrite paths in boot.json for use from deploy dir
-    cp ${S}/images/boot.json ${B}/boot-${MACHINE}.json
-    sed -i 's/opensbi.bin/fw_jump.bin/' ${B}/boot-${MACHINE}.json
-    sed -i "s/rootfs.cpio/core-image-minimal-${MACHINE}.cpio/" ${B}/boot-${MACHINE}.json
-    install -Dm 0644 ${B}/boot-${MACHINE}.json ${DEPLOYDIR}/boot.json
-}
-addtask deploy before do_build after do_install
-
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 COMPATIBLE_MACHINE = "ecpix5"
