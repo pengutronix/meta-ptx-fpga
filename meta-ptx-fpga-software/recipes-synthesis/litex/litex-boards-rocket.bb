@@ -30,3 +30,12 @@ do_compile() {
    --cpu-type rocket --cpu-variant linuxd --sys-clk-freq 50e6 \
    --with-ethernet --with-sdcard
 }
+
+do_deploy () {
+    install -Dm 0644 ${B}/build/lambdaconcept_ecpix5/gateware/lambdaconcept_ecpix5.bit ${DEPLOYDIR}/top.bit
+    install -Dm 0644 ${B}/build/lambdaconcept_ecpix5/gateware/lambdaconcept_ecpix5.svf ${DEPLOYDIR}/top.svf
+}
+do_install[noexec] = "1"
+
+addtask deploy before do_build after do_install
+
