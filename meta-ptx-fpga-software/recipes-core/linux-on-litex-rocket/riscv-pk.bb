@@ -11,16 +11,21 @@ SRC_URI = "git://github.com/riscv/riscv-pk.git;branch=master \
 
 S = "${WORKDIR}/git"
 
-#EXTRA_OEMAKE += "PLATFORM=${RISCV_SBI_PLAT} I=${D}"
-# If RISCV_SBI_PAYLOAD is set then include it as a payload
-#EXTRA_OEMAKE_append = " ${@riscv_get_extra_oemake_image(d)}"
+DEPENDS += "dtc-native"
 
-# Required if specifying a custom payload
-#do_compile[depends] += "${@riscv_get_do_compile_depends(d)}"
+DEPENDS += "virtual/kernel"
+DEPENDS += "linux-on-litex-rocket"
 
-EXTRA_OECONF = "--host=riscv64-unknown-linux-gnu \
-		--with-arch=rv64imac \
-		"
+# Required because vmlinux is the workload
+do_compile[depends] += "linux-ecpix5:do_deploy"
+
+EXTRA_OECONF = "\
+	--host=riscv64-unknown-linux-gnu \
+	--with-arch=rv64imac \
+	--with-dts=${DEPLOY_DIR}/images/ecpix5-rocket/ecpix5.dts \
+	--with-payload=${DEPLOY_DIR}/images/ecpix5-rocket/vmlinux-initramfs-ecpix5-rocket.bin \
+	--enable-logo \
+"
 
 autotools_do_configure() {
 	# autoreconf results in a broken configure script
@@ -28,8 +33,7 @@ autotools_do_configure() {
 }
 
 autotools_do_compile() {
-	oe_runmake bbl
-	${OBJCOPY} -O binary bbl bbl.bin
+	oe_runmake bbl.bin
 }
 
 do_install() {
