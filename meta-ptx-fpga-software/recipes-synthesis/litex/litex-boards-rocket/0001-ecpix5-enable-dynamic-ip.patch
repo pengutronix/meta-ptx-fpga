@@ -1,0 +1,26 @@
+From 799950cf199843e1e4e296992f26cf477055ce48 Mon Sep 17 00:00:00 2001
+From: Michael Tretter <m.tretter@pengutronix.de>
+Date: Wed, 21 Jul 2021 12:00:51 +0200
+Subject: [PATCH] ecpix5: enable dynamic ip
+
+Enable dynamic ip to be able to change the ip on the running system.
+---
+ litex_boards/targets/lambdaconcept_ecpix5.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/litex_boards/targets/lambdaconcept_ecpix5.py b/litex_boards/targets/lambdaconcept_ecpix5.py
+index 859d52ddb3a9..17a686812643 100755
+--- a/litex_boards/targets/lambdaconcept_ecpix5.py
++++ b/litex_boards/targets/lambdaconcept_ecpix5.py
+@@ -110,7 +110,7 @@ class BaseSoC(SoCCore):
+                 pads       = self.platform.request("eth"),
+                 rx_delay   = 0e-9)
+             if with_ethernet:
+-                self.add_ethernet(phy=self.ethphy)
++                self.add_ethernet(phy=self.ethphy,dynamic_ip=True)
+             if with_etherbone:
+                 self.add_etherbone(phy=self.ethphy)
+ 
+-- 
+2.30.2
+
