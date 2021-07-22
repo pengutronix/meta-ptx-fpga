@@ -12,31 +12,17 @@ PV = "0+git${SRCPV}"
 S = "${WORKDIR}/git"
 
 inherit deploy
-inherit litexnative
-inherit fpga
-
-DEPENDS += "dtc-native"
-DEPENDS += "yosys-native"
-DEPENDS += "${@fpga_family_depends(d)}"
-DEPENDS += "migen-native"
-DEPENDS += "litex-native"
-
-# device modules
-DEPENDS += "litex-pythondata-cpu-rocket-native"
-DEPENDS += "litex-pythondata-software-compiler-rt-native"
-DEPENDS += "litex-pythondata-misc-tapcfg-native"
-DEPENDS += "litex-boards-rocket"
-DEPENDS += "litedram-native"
-DEPENDS += "liteeth-native"
-DEPENDS += "litevideo-native"
-DEPENDS += "litescope-native"
-DEPENDS += "litesdcard-native"
 
 # do not depend on libc or compiler libs, only the compiler is needed
 DEPENDS_remove = "virtual/${TARGET_PREFIX}compilerlibs virtual/libc"
 
-# prevent the population of the build-id section into the output
-CC += "-Wl,--build-id=none"
-
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 COMPATIBLE_MACHINE = "ecpix5"
+
+# HACK: riscv-pk requires a dts file for the board. Install the dts for the
+# ecpix5 into the deploy directory for the riscv-pk recipe.
+do_deploy() {
+    install -Dm 0644 ${WORKDIR}/git/conf/ecpix5.dts ${DEPLOYDIR}/ecpix5.dts
+}
+do_install[noexec] = "1"
+addtask deploy before do_build after do_install
