@@ -54,8 +54,8 @@ do_compile() {
 do_install[noexec] = "1"
 
 do_deploy () {
-    install -Dm 0644 ${B}/build/ecpix5/gateware/lambdaconcept_ecpix5.bit ${DEPLOYDIR}/top.bit
-    install -Dm 0644 ${B}/build/ecpix5/gateware/lambdaconcept_ecpix5.svf ${DEPLOYDIR}/top.svf
+    install -Dm 0644 ${B}/build/ecpix5/gateware/ecpix5.bit ${DEPLOYDIR}/top.bit
+    install -Dm 0644 ${B}/build/ecpix5/gateware/ecpix5.svf ${DEPLOYDIR}/top.svf
     install -Dm 0655 ${B}/images/rv32.dtb ${DEPLOYDIR}/rv32.dtb
 
     # rewrite paths in boot.json for use from deploy dir
