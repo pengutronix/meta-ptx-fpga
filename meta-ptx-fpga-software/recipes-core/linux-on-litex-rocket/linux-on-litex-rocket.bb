@@ -5,8 +5,11 @@ SECTION = "devel/hdl"
 LICENSE = "BSD-2-Clause"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/BSD-2-Clause;md5=cb641bc04cda31daea161b1bc15da69f"
 
-SRC_URI = "git://github.com/litex-hub/linux-on-litex-rocket;protocol=https"
-SRCREV = "cc45c13b2860653c08abb59aaeb0b6681e3cf098"
+SRC_URI = "\
+    git://github.com/litex-hub/linux-on-litex-rocket;protocol=https \
+    file://0001-conf-ecpix5.dts-fix-typo.patch \
+"
+SRCREV = "c9e032c1e1fc2d2c42cffedcbfdaca72b221f062"
 PV = "0+git${SRCPV}"
 
 S = "${WORKDIR}/git"
