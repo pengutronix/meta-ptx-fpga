@@ -14,6 +14,9 @@ COMPATIBLE_MACHINE = "ecpix5.*"
 
 S = "${WORKDIR}/git"
 
+# FIXME The litex-rebase branch is rebased all the time causing problems with
+# the sha1 and reproducibility. Maybe we should put the patches into the BSP
+# and apply them to some known base?
 BRANCH = "litex-rebase"
 SRCREV = "c0b3631a285b716041269d18c898eaedb4243cea"
 PV = "5.12+${SRCPV}"
