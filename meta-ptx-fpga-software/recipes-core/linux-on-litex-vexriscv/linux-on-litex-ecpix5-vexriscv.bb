@@ -67,7 +67,7 @@ do_deploy () {
 addtask deploy before do_build after do_install
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
-COMPATIBLE_MACHINE = "ecpix5"
+COMPATIBLE_MACHINE = "ecpix5-vexriscv"
 
 # include terminal to run the simulator on the user terminal
 inherit terminal
