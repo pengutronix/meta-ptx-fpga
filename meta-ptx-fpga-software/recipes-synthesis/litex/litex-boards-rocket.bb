@@ -24,6 +24,7 @@ DEPENDS += "litex-native"
 DEPENDS += "litex-boards-native"
 DEPENDS += "litex-pythondata-cpu-rocket-native"
 DEPENDS += "litex-pythondata-software-compiler-rt-native"
+DEPENDS += "litedram-native"
 DEPENDS += "litesdcard-native"
 
 inherit setuptools3
