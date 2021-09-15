@@ -1,0 +1,24 @@
+From cec3ce78f76ed08fcc0a3fc8e477d0d46a2043dd Mon Sep 17 00:00:00 2001
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Mon, 13 Sep 2021 16:47:41 +0200
+Subject: [PATCH] make.py: ecpix5: slow down serial
+
+---
+ make.py | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/make.py b/make.py
+index 4d3db41..5c90cef 100755
+--- a/make.py
++++ b/make.py
+@@ -405,6 +405,7 @@ class ECPIX5(Board):
+     soc_kwargs = {
+         "sys_clk_freq" : int(50e6),
+         "l2_size"      : 2048, # Use Wishbone and L2 for memory accesses.
++        "uart_baudrate": 115.2e3, # Slow down baudrate
+     }
+     def __init__(self):
+         from litex_boards.targets import ecpix5
+-- 
+2.33.0
+
