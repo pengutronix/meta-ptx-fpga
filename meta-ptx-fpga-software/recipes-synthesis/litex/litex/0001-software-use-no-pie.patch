@@ -1,4 +1,4 @@
-From 68ff71aef550ff8cd11f07fa0bf577acdfffe9a3 Mon Sep 17 00:00:00 2001
+From 3725f5211bf5ddcc779ae7e2fee06b4222e28917 Mon Sep 17 00:00:00 2001
 From: Michael Tretter <michael.tretter@posteo.net>
 Date: Tue, 14 Sep 2021 15:19:17 +0200
 Subject: [PATCH] software: use -no-pie
@@ -12,18 +12,15 @@ Build with -no-pie as workaround.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/litex/soc/software/common.mak b/litex/soc/software/common.mak
-index ec14f40d..96b643d1 100644
+index 6d8f3f11e269..35f78dc14c6d 100644
 --- a/litex/soc/software/common.mak
 +++ b/litex/soc/software/common.mak
 @@ -53,7 +53,7 @@ INCLUDES = -I$(SOC_DIRECTORY)/software/include/base \
  COMMONFLAGS = $(DEPFLAGS) -Os $(CPUFLAGS) -g3 -fomit-frame-pointer -Wall -fno-builtin -nostdinc -fno-stack-protector $(INCLUDES)
  CFLAGS = $(COMMONFLAGS) -fexceptions -Wstrict-prototypes -Wold-style-definition -Wmissing-prototypes
  CXXFLAGS = $(COMMONFLAGS) -std=c++11 -I$(SOC_DIRECTORY)/software/include/basec++ -fexceptions -fno-rtti -ffreestanding
--LDFLAGS = -nostdlib -nodefaultlibs -L$(BUILDINC_DIRECTORY)
-+LDFLAGS = -nostdlib -nodefaultlibs -no-pie -L$(BUILDINC_DIRECTORY)
+-LDFLAGS = -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -L$(BUILDINC_DIRECTORY)
++LDFLAGS = -nostdlib -nodefaultlibs -Wl,--no-dynamic-linker -Wl,--build-id=none -no-pie -L$(BUILDINC_DIRECTORY)
  
  define compilexx
  $(CX) -c $(CXXFLAGS) $(1) $< -o $@
--- 
-2.33.0
-

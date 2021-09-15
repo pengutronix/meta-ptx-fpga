@@ -5,7 +5,5 @@ do_configure_prepend() {
 }
 
 SRC_URI += "\
-    file://0001-soc-software-bios.elf-link-statically.patch \
-    file://0002-soc-software-Fix-objcopy-with-build-id-builds.patch \
-    file://0003-software-use-no-pie.patch \
+    file://0001-software-use-no-pie.patch \
 "
