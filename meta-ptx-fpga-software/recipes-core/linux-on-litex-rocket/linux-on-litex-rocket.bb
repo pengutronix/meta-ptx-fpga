@@ -18,13 +18,19 @@ inherit deploy
 # do not depend on libc or compiler libs, only the compiler is needed
 DEPENDS_remove = "virtual/${TARGET_PREFIX}compilerlibs virtual/libc"
 
+DEPENDS += "dtc-native"
+
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 COMPATIBLE_MACHINE = "ecpix5"
+
+do_compile() {
+    dtc -I dts -O dtb -o ${B}/ecpix5.dtb ${S}/conf/ecpix5.dts
+}
 
 # HACK: riscv-pk requires a dts file for the board. Install the dts for the
 # ecpix5 into the deploy directory for the riscv-pk recipe.
 do_deploy() {
-    install -Dm 0644 ${S}/conf/ecpix5.dts ${DEPLOYDIR}/ecpix5.dts
+    install -Dm 0644 ${B}/ecpix5.dtb ${DEPLOYDIR}/ecpix5.dtb
     install -Dm 0644 ${S}/boot-ecpix5-rocket.json ${DEPLOYDIR}/boot.json
 }
 do_install[noexec] = "1"

@@ -11,13 +11,9 @@ SRC_URI = "git://github.com/riscv/riscv-pk.git;branch=master \
 
 S = "${WORKDIR}/git"
 
-DEPENDS += "dtc-native"
-DEPENDS += "linux-on-litex-rocket"
-
 EXTRA_OECONF = "\
 	--host=riscv64-unknown-linux-gnu \
 	--with-arch=rv64imac \
-	--with-dts=${DEPLOY_DIR}/images/ecpix5-rocket/ecpix5.dts \
 	--enable-logo \
 "
 
