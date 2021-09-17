@@ -14,7 +14,6 @@ S = "${WORKDIR}/git"
 EXTRA_OECONF = "\
 	--host=riscv64-unknown-linux-gnu \
 	--with-arch=rv64imac \
-	--enable-logo \
 "
 
 autotools_do_configure() {
