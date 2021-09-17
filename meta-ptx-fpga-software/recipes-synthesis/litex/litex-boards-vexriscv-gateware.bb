@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/BSD-2-Clause;md5=cb641bc04cda31
 SRC_URI = "\
 	git://github.com/strumtrar/litex-boards;protocol=https \
 "
-SRCREV = "508f378252c12ae4d95ff12ec89f297040b8d0bb"
+SRCREV = "7b26f2b3dee2c89c76b945229f9287647a25369b"
 PV = "0+git${SRCPV}"
 
 S = "${WORKDIR}/git"
