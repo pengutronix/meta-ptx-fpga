@@ -1,5 +1,8 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
+SRCREV = "2021.08"
+PV = "2021.08"
+
 do_configure_prepend() {
     export LITEX_ENV_CC_TRIPLE="$CC"
 }
