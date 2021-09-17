@@ -1,30 +1,28 @@
-From 29a67b42a2260071000283d3147e9641154a9f1d Mon Sep 17 00:00:00 2001
+From 7293c0528e3c2328eae9339d5bb1fa19e91c21eb Mon Sep 17 00:00:00 2001
 From: Michael Tretter <m.tretter@pengutronix.de>
 Date: Fri, 17 Sep 2021 09:51:51 +0200
-Subject: [PATCH] Prepare a boot.json file for booting
+Subject: [PATCH] Add a boot.json file to load binaries in Litex
 
-This allows to pass the kernel, dtb, and initramfs as separate binaries,
-which makes compilation easier.
-
-%% original patch: 0004-Prepare-a-boot.json-file-for-booting.patch
+The boot.json file allows to load the kernel, dtb, and initramfs as
+separate binaries, which makes compilation and updates easier.
 ---
- boot-ecpix5-rocket.json | 7 +++++++
- conf/ecpix5.dts         | 6 +++++-
+ boot.json       | 7 +++++++
+ conf/ecpix5.dts | 6 +++++-
  2 files changed, 12 insertions(+), 1 deletion(-)
- create mode 100644 boot-ecpix5-rocket.json
+ create mode 100644 boot.json
 
-diff --git a/boot-ecpix5-rocket.json b/boot-ecpix5-rocket.json
+diff --git a/boot.json b/boot.json
 new file mode 100644
-index 000000000000..b49f0cda496e
+index 000000000000..f39452467b45
 --- /dev/null
-+++ b/boot-ecpix5-rocket.json
++++ b/boot.json
 @@ -0,0 +1,7 @@
 +{
-+    "mtr-Image": "0x80200000",
-+    "mtr-ecpix5.dtb": "0x81000000",
-+    "r1": "0x81000000",
-+    "mtr-rootfs.cpio": "0x82000000",
-+    "mtr-bbl.bin": "0x80000000"
++    "Image": "0x80200000",
++    "ecpix5.dtb": "0x81000000",
++    "r2": "0x81000000",
++    "rootfs.cpio": "0x82000000",
++    "bbl.bin": "0x80000000"
 +}
 diff --git a/conf/ecpix5.dts b/conf/ecpix5.dts
 index 88374d682516..84c4cac6aad6 100644
@@ -43,6 +41,3 @@ index 88374d682516..84c4cac6aad6 100644
  	};
  	L13: cpus {
  		#address-cells = <1>;
--- 
-2.30.2
-

@@ -1,5 +1,3 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
-SRC_URI += "\
-    file://0001-Prepare-a-boot.json-file-for-booting.patch \
-"
+SRC_URI += "file://0001-Add-a-boot.json-file-to-load-binaries-in-Litex.patch"
