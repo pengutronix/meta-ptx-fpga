@@ -25,6 +25,7 @@ COMPATIBLE_MACHINE = "ecpix5"
 # ecpix5 into the deploy directory for the riscv-pk recipe.
 do_deploy() {
     install -Dm 0644 ${S}/conf/ecpix5.dts ${DEPLOYDIR}/ecpix5.dts
+    install -Dm 0644 ${S}/boot-ecpix5-rocket.json ${DEPLOYDIR}/boot.json
 }
 do_install[noexec] = "1"
 addtask deploy before do_build after do_install

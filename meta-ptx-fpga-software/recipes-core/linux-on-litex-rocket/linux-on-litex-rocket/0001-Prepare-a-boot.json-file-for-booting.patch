@@ -1,0 +1,48 @@
+From 29a67b42a2260071000283d3147e9641154a9f1d Mon Sep 17 00:00:00 2001
+From: Michael Tretter <m.tretter@pengutronix.de>
+Date: Fri, 17 Sep 2021 09:51:51 +0200
+Subject: [PATCH] Prepare a boot.json file for booting
+
+This allows to pass the kernel, dtb, and initramfs as separate binaries,
+which makes compilation easier.
+
+%% original patch: 0004-Prepare-a-boot.json-file-for-booting.patch
+---
+ boot-ecpix5-rocket.json | 7 +++++++
+ conf/ecpix5.dts         | 6 +++++-
+ 2 files changed, 12 insertions(+), 1 deletion(-)
+ create mode 100644 boot-ecpix5-rocket.json
+
+diff --git a/boot-ecpix5-rocket.json b/boot-ecpix5-rocket.json
+new file mode 100644
+index 000000000000..b49f0cda496e
+--- /dev/null
++++ b/boot-ecpix5-rocket.json
+@@ -0,0 +1,7 @@
++{
++    "mtr-Image": "0x80200000",
++    "mtr-ecpix5.dtb": "0x81000000",
++    "r1": "0x81000000",
++    "mtr-rootfs.cpio": "0x82000000",
++    "mtr-bbl.bin": "0x80000000"
++}
+diff --git a/conf/ecpix5.dts b/conf/ecpix5.dts
+index 88374d682516..84c4cac6aad6 100644
+--- a/conf/ecpix5.dts
++++ b/conf/ecpix5.dts
+@@ -6,7 +6,11 @@
+ 	compatible = "freechips,rocketchip-unknown-dev";
+ 	model = "freechips,rocketchip-unknown";
+ 	chosen {
+-		bootargs = "earlycon=sbi console=liteuart swiotlb=noforce";
++		bootargs = "earlycon=sbi console=liteuart swiotlb=noforce root=/dev/ram0";
++		riscv,kernel-start = <0x80200000>;
++		riscv,kernel-end = <0x81000000>;
++		linux,initrd-start = <0x82000000>;
++		linux,initrd-end = <0x84000000>;
+ 	};
+ 	L13: cpus {
+ 		#address-cells = <1>;
+-- 
+2.30.2
+
