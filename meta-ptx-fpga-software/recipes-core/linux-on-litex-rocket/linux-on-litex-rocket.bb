@@ -24,7 +24,7 @@ COMPATIBLE_MACHINE = "ecpix5"
 # HACK: riscv-pk requires a dts file for the board. Install the dts for the
 # ecpix5 into the deploy directory for the riscv-pk recipe.
 do_deploy() {
-    install -Dm 0644 ${WORKDIR}/git/conf/ecpix5.dts ${DEPLOYDIR}/ecpix5.dts
+    install -Dm 0644 ${S}/conf/ecpix5.dts ${DEPLOYDIR}/ecpix5.dts
 }
 do_install[noexec] = "1"
 addtask deploy before do_build after do_install
