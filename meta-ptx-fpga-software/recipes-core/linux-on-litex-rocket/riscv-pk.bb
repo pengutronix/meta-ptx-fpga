@@ -12,18 +12,12 @@ SRC_URI = "git://github.com/riscv/riscv-pk.git;branch=master \
 S = "${WORKDIR}/git"
 
 DEPENDS += "dtc-native"
-
-DEPENDS += "virtual/kernel"
 DEPENDS += "linux-on-litex-rocket"
-
-# Required because vmlinux is the workload
-do_compile[depends] += "linux-ecpix5:do_deploy"
 
 EXTRA_OECONF = "\
 	--host=riscv64-unknown-linux-gnu \
 	--with-arch=rv64imac \
 	--with-dts=${DEPLOY_DIR}/images/ecpix5-rocket/ecpix5.dts \
-	--with-payload=${DEPLOY_DIR}/images/ecpix5-rocket/vmlinux-initramfs-ecpix5-rocket.bin \
 	--enable-logo \
 "
 
