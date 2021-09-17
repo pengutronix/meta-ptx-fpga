@@ -7,9 +7,8 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/BSD-2-Clause;md5=cb641bc04cda31
 
 SRC_URI = "\
     git://github.com/litex-hub/linux-on-litex-rocket;protocol=https \
-    file://0001-conf-ecpix5.dts-fix-typo.patch \
 "
-SRCREV = "c9e032c1e1fc2d2c42cffedcbfdaca72b221f062"
+SRCREV = "af07b00d26a9594fbf31c158dd20a3c0008456d5"
 PV = "0+git${SRCPV}"
 
 S = "${WORKDIR}/git"
