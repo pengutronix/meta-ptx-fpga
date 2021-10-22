@@ -18,7 +18,7 @@ S = "${WORKDIR}/git"
 # the sha1 and reproducibility. Maybe we should put the patches into the BSP
 # and apply them to some known base?
 BRANCH = "litex-rebase"
-SRCREV = "c0b3631a285b716041269d18c898eaedb4243cea"
+SRCREV = "9c9c0195b4a41262c86869a2bd6e333b15356ca8"
 PV = "5.12+${SRCPV}"
 SRC_URI = " \
     git://github.com/litex-hub/linux.git;protocol=https;branch=${BRANCH} \
