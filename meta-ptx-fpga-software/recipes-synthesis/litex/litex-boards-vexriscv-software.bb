@@ -19,7 +19,7 @@ DEPENDS += "migen-native"
 DEPENDS += "litex-native"
 DEPENDS += "litex-boards-native"
 DEPENDS += "litedram-native"
-DEPENDS += "litex-pythondata-cpu-vexriscv-native"
+DEPENDS += "litex-pythondata-cpu-vexriscv-smp-native"
 DEPENDS += "litex-pythondata-software-compiler-rt-native"
 
 inherit setuptools3
@@ -28,7 +28,7 @@ do_compile() {
     ${S}/litex_boards/targets/lambdaconcept_ecpix5.py \
    --no-compile-gateware \
    --gateware-dir build/lambdaconcept_ecpix5/gateware \
-   --cpu-type vexriscv --sys-clk-freq 50e6 --with-ethernet
+   --cpu-type vexriscv_smp --sys-clk-freq 50e6 --with-ethernet
 }
 
 do_install() {
