@@ -1,0 +1,141 @@
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Fri, 19 Nov 2021 15:23:48 +0100
+Subject: [PATCH] openrisc: add dts for ecpix5
+
+---
+ arch/openrisc/boot/dts/litex-vexriscv-ecpix5.dts | 126 +++++++++++++++++++++++
+ 1 file changed, 126 insertions(+)
+ create mode 100644 arch/openrisc/boot/dts/litex-vexriscv-ecpix5.dts
+
+diff --git a/arch/openrisc/boot/dts/litex-vexriscv-ecpix5.dts b/arch/openrisc/boot/dts/litex-vexriscv-ecpix5.dts
+new file mode 100644
+index 000000000000..0138a4b33422
+--- /dev/null
++++ b/arch/openrisc/boot/dts/litex-vexriscv-ecpix5.dts
+@@ -0,0 +1,126 @@
++/dts-v1/;
++
++/ {
++	#address-cells = <0x01>;
++	#size-cells = <0x01>;
++
++	chosen {
++		bootargs = "mem=512M@0x40000000 rootwait console=liteuart earlycon=sbi root=/dev/ram0 init=/sbin/init swiotlb=32";
++		linux,initrd-start = <0x41000000>;
++		linux,initrd-end = <0x41800000>;
++	};
++
++	cpus {
++		#address-cells = <0x01>;
++		#size-cells = <0x00>;
++		timebase-frequency = <0x2faf080>;
++
++		cpu@0 {
++			device_type = "cpu";
++			compatible = "riscv";
++			riscv,isa = "rv32ima";
++			mmu-type = "riscv,sv32";
++			reg = <0x00>;
++			clock-frequency = <0x2faf080>;
++			status = "okay";
++
++			interrupt-controller {
++				#interrupt-cells = <0x01>;
++				interrupt-controller;
++				compatible = "riscv,cpu-intc";
++				phandle = <0x02>;
++			};
++		};
++	};
++
++	memory@40000000 {
++		device_type = "memory";
++		reg = <0x40000000 0x20000000>;
++	};
++
++	reserved-memory {
++		#address-cells = <0x01>;
++		#size-cells = <0x01>;
++		ranges;
++
++		opensbi@40f00000 {
++			reg = <0x40f00000 0x80000>;
++		};
++	};
++
++	soc {
++		#address-cells = <0x01>;
++		#size-cells = <0x01>;
++		bus-frequency = <0x2faf080>;
++		compatible = "simple-bus";
++		interrupt-parent = <0x01>;
++		ranges;
++
++		soc_controller@f0000000 {
++			compatible = "litex,soc-controller";
++			reg = <0xf0000000 0x0c>;
++			status = "okay";
++		};
++
++		interrupt-controller@f0c00000 {
++			compatible = "sifive,fu540-c000-plic\0sifive,plic-1.0.0";
++			reg = <0xf0c00000 0x400000>;
++			#address-cells = <0x00>;
++			#interrupt-cells = <0x01>;
++			interrupt-controller;
++			interrupts-extended = <0x02 0x0b 0x02 0x09>;
++			riscv,ndev = <0x20>;
++			phandle = <0x01>;
++		};
++
++		serial@f0001000 {
++			compatible = "litex,liteuart";
++			reg = <0xf0001000 0x100>;
++			interrupts = <0x00>;
++			status = "okay";
++		};
++
++		mac@f0002000 {
++			compatible = "litex,liteeth";
++			reg = <0xf0002000 0x7c 0xf0002800 0x0a 0xb0000000 0x2000>;
++			tx-fifo-depth = <0x02>;
++			rx-fifo-depth = <0x02>;
++			interrupts = <0x02>;
++			status = "okay";
++		};
++
++		spiflash@f0007000 {
++			#address-cells = <0x01>;
++			#size-cells = <0x01>;
++			compatible = "litex,spiflash";
++			reg = <0xf0007000 0x100>;
++
++			flash@0 {
++				compatible = "jedec,spi-nor";
++				reg = <0x00 0x1000000>;
++			};
++		};
++
++		mmc@f0006000 {
++			compatible = "litex,mmc";
++			reg = <0xf0006000 0x100 0xf0004800 0x100 0xf0004000 0x100 0xf0005800 0x100>;
++			bus-width = <0x04>;
++			status = "okay";
++		};
++
++		gpio@f0003800 {
++			compatible = "litex,gpio";
++			reg = <0xf0003800 0x04>;
++			gpio-controller;
++			#gpio-cells = <0x02>;
++			litex,direction = "out";
++			status = "okay";
++			litex,ngpio = <0x04>;
++		};
++	};
++
++	aliases {
++		serial0 = "/soc/serial@f0001000";
++		spiflash = "/soc/spiflash@f0007000";
++	};
++};

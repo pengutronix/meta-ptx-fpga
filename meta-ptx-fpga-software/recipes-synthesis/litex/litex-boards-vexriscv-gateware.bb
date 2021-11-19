@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/BSD-2-Clause;md5=cb641bc04cda31
 SRC_URI = "\
 	git://github.com/strumtrar/litex-boards;protocol=https \
 "
-SRCREV = "7b26f2b3dee2c89c76b945229f9287647a25369b"
+SRCREV = "master"
 PV = "0+git${SRCPV}"
 
 S = "${WORKDIR}/git"
@@ -30,7 +30,7 @@ inherit setuptools3
 do_compile() {
     ${S}/litex_boards/targets/lambdaconcept_ecpix5.py \
    --no-compile-software \
-   --cpu-type vexriscv_smp --sys-clk-freq 50e6 --with-ethernet
+   --cpu-type vexriscv_smp --cpu-variant linux --sys-clk-freq 50e6 --with-ethernet
 
    cd ${B}/build/lambdaconcept_ecpix5/gateware
    yosys -l lambdaconcept_ecpix5.rpt lambdaconcept_ecpix5.ys
