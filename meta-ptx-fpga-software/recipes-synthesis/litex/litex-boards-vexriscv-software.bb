@@ -28,7 +28,7 @@ do_compile() {
     ${S}/litex_boards/targets/lambdaconcept_ecpix5.py \
    --no-compile-gateware \
    --gateware-dir build/lambdaconcept_ecpix5/gateware \
-   --cpu-type vexriscv_smp --cpu-variant linux --sys-clk-freq 50e6 --with-ethernet
+   --cpu-type vexriscv_smp --cpu-variant linux --sys-clk-freq 50e6 --with-ethernet --with-sdcard
 }
 
 do_install() {

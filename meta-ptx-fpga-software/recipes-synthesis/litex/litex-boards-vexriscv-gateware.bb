@@ -30,7 +30,7 @@ inherit setuptools3
 do_compile() {
     ${S}/litex_boards/targets/lambdaconcept_ecpix5.py \
    --no-compile-software \
-   --cpu-type vexriscv_smp --cpu-variant linux --sys-clk-freq 50e6 --with-ethernet
+   --cpu-type vexriscv_smp --cpu-variant linux --sys-clk-freq 50e6 --with-ethernet --with-sdcard
 
    cd ${B}/build/lambdaconcept_ecpix5/gateware
    yosys -l lambdaconcept_ecpix5.rpt lambdaconcept_ecpix5.ys
