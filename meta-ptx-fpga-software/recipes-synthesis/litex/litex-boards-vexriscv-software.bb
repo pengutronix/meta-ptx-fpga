@@ -19,6 +19,7 @@ DEPENDS += "migen-native"
 DEPENDS += "litex-native"
 DEPENDS += "litex-boards-native"
 DEPENDS += "litedram-native"
+DEPENDS += "litesdcard-native"
 DEPENDS += "litex-pythondata-cpu-vexriscv-smp-native"
 DEPENDS += "litex-pythondata-software-compiler-rt-native"
 
