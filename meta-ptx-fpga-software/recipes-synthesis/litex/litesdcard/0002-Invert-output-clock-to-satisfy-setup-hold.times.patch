@@ -1,0 +1,24 @@
+From 12c35d9cab7fac02736e57489028d1e7ef00d5be Mon Sep 17 00:00:00 2001
+From: Greg Davill <greg.davill@gmail.com>
+Date: Fri, 10 Dec 2021 17:06:59 +1030
+Subject: [PATCH] Invert output clock to satisfy setup/hold times
+
+---
+ litesdcard/phy.py | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/litesdcard/phy.py b/litesdcard/phy.py
+index 53a7143..7934705 100644
+--- a/litesdcard/phy.py
++++ b/litesdcard/phy.py
+@@ -520,10 +520,9 @@ def __init__(self, clocker, sdpads, pads):
+         if hasattr(pads, "rst"):
+             self.comb += pads.rst.eq(0)
+ 
+-        # Clk
+         self.specials += SDROutput(
+             clk = ClockSignal("sys"),
+-            i   = clocker.clk,
++            i   = ~clocker.clk,
+             o   = pads.clk
+         )
