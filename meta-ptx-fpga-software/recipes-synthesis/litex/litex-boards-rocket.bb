@@ -8,8 +8,8 @@ SRC_URI = "\
 	git://github.com/litex-hub/litex-boards;protocol=https \
 	file://0001-ecpix5-enable-dynamic-ip.patch \
 "
-SRCREV = "2021.08"
-PV = "2021.08"
+SRCREV = "2022.04"
+SRCPV = "2022.04"
 
 S = "${WORKDIR}/git"
 
