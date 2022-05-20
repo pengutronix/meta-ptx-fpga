@@ -1,4 +1,4 @@
-FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
 LIC_FILES_CHKSUM = "file://LICENSE;md5=84fb2139cffab4ac444f26bfd284a2bb"
 

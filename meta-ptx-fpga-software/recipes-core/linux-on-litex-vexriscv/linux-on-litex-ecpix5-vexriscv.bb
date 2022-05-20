@@ -35,7 +35,7 @@ DEPENDS += "litescope-native"
 DEPENDS += "litesdcard-native"
 
 # do not depend on libc or compiler libs, only the compiler is needed
-DEPENDS_remove = "virtual/${TARGET_PREFIX}compilerlibs virtual/libc"
+DEPENDS:remove = "virtual/${TARGET_PREFIX}compilerlibs virtual/libc"
 
 SRC_URI += "\
     file://0001-make.py-ecpix5-slow-down-serial.patch \

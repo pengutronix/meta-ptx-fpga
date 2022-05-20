@@ -16,7 +16,7 @@ S = "${WORKDIR}/git"
 inherit deploy
 
 # do not depend on libc or compiler libs, only the compiler is needed
-DEPENDS_remove = "virtual/${TARGET_PREFIX}compilerlibs virtual/libc"
+DEPENDS:remove = "virtual/${TARGET_PREFIX}compilerlibs virtual/libc"
 
 DEPENDS += "dtc-native"
 
