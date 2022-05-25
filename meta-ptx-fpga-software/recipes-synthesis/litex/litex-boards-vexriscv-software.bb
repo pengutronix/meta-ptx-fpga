@@ -45,4 +45,4 @@ do_install() {
    install -d ${D}${datadir}/software
    install ${B}/build/lambdaconcept_ecpix5/gateware/* ${D}${datadir}/software
 }
-FILES_${PN} = "${datadir}/software"
+FILES:${PN} = "${datadir}/software"

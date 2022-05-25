@@ -59,5 +59,5 @@ do_install() {
    install -d ${D}${datadir}/gateware
    install ${B}/build/lambdaconcept_ecpix5/gateware/* ${D}${datadir}/gateware
 }
-FILES_${PN} = "${datadir}/gateware"
+FILES:${PN} = "${datadir}/gateware"
 BBCLASSEXTEND = "native nativesdk"
