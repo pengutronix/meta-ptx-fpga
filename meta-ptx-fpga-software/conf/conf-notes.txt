@@ -1,0 +1,20 @@
+Image targets are:
+
+	image-core-minimal
+
+The built SD card image contains the OpenSBI, Linux-Kernel and rootfs. The
+FPGA bitstream is built as a dependency, but not included in the SD card
+image, since it is loaded from the SPI flash.
+
+To build only the FPGA bitstream bitbake:
+
+	ptxsoc-vexriscv
+
+The FGPA bitstream must explicitly copied to the flash. The recommended method
+is to use the openFPGALoader:
+
+	openFPGAloader -b ecpix5 -f build/tmp/deploy/images/ecpix5-vexriscv/ptxsoc.bit
+
+For general OpenEmbedded-related documentation, check about the Yocto reference
+manual which can be found at:
+    http://yoctoproject.org/documentation
