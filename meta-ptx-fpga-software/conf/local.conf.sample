@@ -195,12 +195,10 @@ BB_DISKMON_DIRS ??= "\
 # NOTE: if the mirror uses the same structure as SSTATE_DIR, you need to add PATH
 # at the end as shown in the examples below. This will be substituted with the
 # correct path within the directory structure.
-## TODO: STW only
-## TODO: Should be commented out?
-SSTATE_MIRRORS ?= "\
-file://.* http://frosted11.red.stw.pengutronix.de:8080/PATH \
-file://.* http://frosted12.red.stw.pengutronix.de:8080/PATH \
-"
+#SSTATE_MIRRORS ?= "\
+#   file://.* http://frosted11.red.stw.pengutronix.de:8080/PATH \
+#   file://.* http://frosted12.red.stw.pengutronix.de:8080/PATH \
+#"
 
 #
 # Yocto Project SState Mirror
