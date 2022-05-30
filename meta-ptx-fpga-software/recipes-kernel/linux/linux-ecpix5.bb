@@ -10,42 +10,14 @@ RDEPENDS:${KERNEL_PACKAGE_NAME}-base = ""
 
 DEFAULT_PREFERENCE = "-1"
 COMPATIBLE_MACHINE = "ecpix5.*"
+
+S = "${WORKDIR}/linux-${LINUX_VERSION}"
+
 LINUX_VERSION = "5.18-rc1"
 
-S = "${WORKDIR}/git"
+PV = "${LINUX_VERSION}"
 
-SRCREV = "v${LINUX_VERSION}"
-BRANCH = "master"
-PV = "${LINUX_VERSION}+${SRCPV}"
-SRC_URI = "git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git;protocol=https;branch=${BRANCH}"
+SRC_URI = "https://git.kernel.org/torvalds/t/linux-${LINUX_VERSION}.tar.gz"
+SRC_URI += "file://defconfig"
 
-kernel_do_configure() {
-    # generate allnoconfig/setup build
-    oe_runmake_call -C ${S} CC="${KERNEL_CC}" O=${B} allnoconfig
-
-    echo "" > ${B}/.config
-
-    # Architecture
-    echo "CONFIG_ARCH_RV32I=y" >> ${B}/.config
-    echo "CONFIG_RISCV_ISA_C=n" >> ${B}/.config
-    echo "CONFIG_SIFIVE_PLIC=y" >> ${B}/.config
-    echo "CONFIG_FPU=y" >> ${B}/.config
-    echo "CONFIG_SMP=n" >> ${B}/.config
-
-    # soc configs
-    echo "CONFIG_LITEX=y" >> ${B}/.config
-    echo "CONFIG_LITEX_SOC_CONTROLLER=y" >> ${B}/.config
-
-    # liteuart console
-    echo "CONFIG_SERIAL_LITEUART=y" >> ${B}/.config
-    echo "CONFIG_SERIAL_LITEUART_CONSOLE=y" >> ${B}/.config
-
-    # liteeth network
-    echo "CONFIG_NET=y" >> ${B}/.config
-    echo "CONFIG_NET_CORE=y" >> ${B}/.config
-    echo "CONFIG_INET=y" >> ${B}/.config
-    echo "CONFIG_NETDEVICES=y" >> ${B}/.config
-    echo "CONFIG_NET_VENDOR_LITEX=y" >> ${B}/.config
-    echo "CONFIG_LITEX_LITEETH=y" >> ${B}/.config
-
-    # kernel features
+SRC_URI[sha256sum] = "a7ae23d354937723b3ee65513c2707c02541a0553ae9a7d5c7136525335d4423"
