@@ -9,6 +9,8 @@ DEPENDS += "${@fpga_family_depends(d)}"
 DEPENDS += "litex-boards-vexriscv-software"
 DEPENDS += "litex-boards-vexriscv-gateware"
 
+SRC_URI += "file://boot.json"
+
 do_compile () {
    cp ${STAGING_DIR_TARGET}/usr/share/software/mem.init ${STAGING_DIR_TARGET}/usr/share/gateware/software.init
 
@@ -29,6 +31,13 @@ do_deploy () {
 	cd ${STAGING_DIR_TARGET}/usr/share/gateware
 	install -Dm 0644 lambdaconcept_ecpix5.bit ${DEPLOYDIR}/ptxsoc.bit
 	install -Dm 0644 lambdaconcept_ecpix5.svf ${DEPLOYDIR}/ptxsoc.svf
+
+	# HACK: The boot.json describes where the LiteX bios puts the binaries
+	# that is loads. It would be better, to generate it with the image,
+	# while putting the binaries into the partition. However, the
+	# addresses need to be in RAM and its address is defined in the
+	# bitstream. Therefore, it is part of the bitstream recipe for now.
+	cp ${WORKDIR}/boot.json ${DEPLOYDIR}/boot.json
 }
 do_install[noexec] = "1"
 
