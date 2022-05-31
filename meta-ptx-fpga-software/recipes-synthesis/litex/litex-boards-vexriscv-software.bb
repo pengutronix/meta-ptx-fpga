@@ -43,6 +43,9 @@ do_compile() {
 
 do_install() {
    install -d ${D}${datadir}/software
-   install ${B}/build/lambdaconcept_ecpix5/gateware/* ${D}${datadir}/software
+
+   # The mem.init contains the LiteX bios as ROM code, which can be used to
+   # update the mem.init of an existing bitstream.
+   install ${B}/build/lambdaconcept_ecpix5/gateware/mem.init ${D}${datadir}/software
 }
 FILES:${PN} = "${datadir}/software"
