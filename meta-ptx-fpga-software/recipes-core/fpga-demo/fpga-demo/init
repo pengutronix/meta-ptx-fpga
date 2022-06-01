@@ -1,0 +1,43 @@
+#!/bin/sh
+#
+# Copyright (C) 2022 Pengutronix, Michael Tretter <entwicklung@pengutronix.de>
+#
+# Permission to use, copy, modify, and/or distribute this software
+# for any purpose with or without fee is hereby granted.
+#
+# THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL
+# WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED
+# WARRANTIES OF MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE
+# AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR
+# CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS
+# OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT,
+# NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN
+# CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+### BEGIN INIT INFO
+# Provides:          fpga-demo
+# Required-Start:    $local_fs $remote_fs
+# Required-Stop:     $local_fs $remote_fs
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+### END INIT INFO
+
+case "$1" in
+  start)
+    shutdown -r +2 &
+  ;;
+
+  stop)
+    # TODO Implement
+  ;;
+
+  restart)
+    # TODO Implement
+  ;;
+
+  *)
+    echo "usage: $0 { start | stop | restart }"
+  ;;
+esac
+
+exit 0
