@@ -60,10 +60,15 @@ onto an SD card::
 The following manual step is necessary, as Linux requires the rootfs as a cpio
 in the boot partition (:ref:`SD card not working in Linux`) but it is not
 possible to automatically add the cpio rootfs archive into the wic image.
+Copy the ``core-image-minimal-ecpix5-vexriscv.cpio`` as ``rootfs.cpio`` from
+your BSP build or jenkins into the first partition::
 
-Mount first partition of the SD card on your development machine. Copy the
-``core-image-minimal-ecpix5-vexriscv.cpio`` from your BSP build or jenkins
-into the first partition. Unmount the partition.
+   cp core-image-minimal-ecpix5-vexriscv.cpio /media/sdX1/rootfs.cpio
+
+.. note::
+   The ``rootfs.cpio`` file name is important. Otherwise, the LiteX bios will
+   not find the rootfs. Make sure, the ``rootfs.cpio`` entry exists in the
+   ``boot.json`` file in the same partition.
 
 Now put the SD card into the SD card slot of the ECPIX-5 and power up the
 board.
