@@ -8,5 +8,6 @@ Contents:
 
   basics
   machine
-  updating
+  known-issues
+  further-reading
 
