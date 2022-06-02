@@ -23,6 +23,10 @@ Reading files from the SD card with the ptxsoc-vexriscv is unreliable and
 corrupted data will be put into RAM. This results in the execution of a
 corrupted OpenSBI.
 
+The main difference between the bitstream is, that the bitstream in the BSP
+uses a litedram controller, while the bitstream from GitHub uses wishbone
+memory. Not sure, if this is related to the patches to enable the l2 cache.
+
 Workaround
 ~~~~~~~~~~
 
