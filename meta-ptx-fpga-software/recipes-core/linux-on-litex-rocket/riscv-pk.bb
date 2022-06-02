@@ -13,7 +13,7 @@ S = "${WORKDIR}/git"
 
 EXTRA_OECONF = "\
 	--host=riscv64-unknown-linux-gnu \
-	--with-arch=rv64imac \
+	--with-arch=rv64imac_zicsr_zifencei \
 "
 
 autotools_do_configure() {
