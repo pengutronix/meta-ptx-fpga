@@ -39,25 +39,33 @@ SECURITY_LDFLAGS = ""
 
 do_compile() {
     ${S}/litex_boards/targets/lambdaconcept_ecpix5.py \
-   --no-compile-software \
-   --cpu-type vexriscv_smp --cpu-variant linux --sys-clk-freq 50e6 --with-ethernet --with-sdcard
+        --no-compile-software \
+        --cpu-type vexriscv_smp \
+        --cpu-variant linux \
+        --sys-clk-freq 50e6 \
+        --with-ethernet \
+        --with-sdcard
 
-   cd ${B}/build/lambdaconcept_ecpix5/gateware
-   yosys -l lambdaconcept_ecpix5.rpt lambdaconcept_ecpix5.ys
-   nextpnr-ecp5 \
-	  --json lambdaconcept_ecpix5.json \
-	  --lpf lambdaconcept_ecpix5.lpf \
-	  --textcfg lambdaconcept_ecpix5.config \
-	  --um5g-85k \
-	  --package CABGA554 \
-	  --speed 8 \
-	  --timing-allow-fail \
-	  --seed 1
+    cd ${B}/build/lambdaconcept_ecpix5/gateware
+
+    yosys -l lambdaconcept_ecpix5.rpt lambdaconcept_ecpix5.ys
+
+    nextpnr-ecp5 \
+        --json lambdaconcept_ecpix5.json \
+        --lpf lambdaconcept_ecpix5.lpf \
+        --textcfg lambdaconcept_ecpix5.config \
+        --um5g-85k \
+        --package CABGA554 \
+        --speed 8 \
+        --timing-allow-fail \
+        --seed 1
 }
 
 do_install() {
-   install -d ${D}${datadir}/gateware
-   install ${B}/build/lambdaconcept_ecpix5/gateware/* ${D}${datadir}/gateware
+	install -d ${D}${datadir}/gateware
+
+	install ${B}/build/lambdaconcept_ecpix5/gateware/* ${D}${datadir}/gateware
 }
+
 FILES:${PN} = "${datadir}/gateware"
 BBCLASSEXTEND = "native nativesdk"
