@@ -69,3 +69,32 @@ Workaround
 
 Use a CPIO archive from RAM as rootfs, which can be loaded by the LiteX bios
 during the initialization.
+
+Multi-Core Support in Linux
+---------------------------
+
+Affected machine
+~~~~~~~~~~~~~~~~
+
+expic5-vexriscv
+
+Symptom
+~~~~~~~
+
+SMP is disabled in Linux. top shows only a single CPU.
+
+Description
+~~~~~~~~~~~
+
+The vexriscv should be synthesized with 2 Cores, but only one core shows up in
+Linux. top also shows only a single CPU.
+
+It is unknown, if this is intentional or if this is a workaround for some
+other issue.
+
+Multi-Core is a core feature of the VexRiscV and should be enabled.
+
+Workaround
+~~~~~~~~~~
+
+-
