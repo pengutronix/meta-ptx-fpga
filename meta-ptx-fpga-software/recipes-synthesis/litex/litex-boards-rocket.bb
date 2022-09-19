@@ -17,6 +17,7 @@ inherit deploy
 inherit litexnative
 inherit fpga
 
+DEPENDS += "meson-native ninja-native"
 DEPENDS += "yosys-native"
 DEPENDS += "${@fpga_family_depends(d)}"
 DEPENDS += "migen-native"
@@ -24,6 +25,7 @@ DEPENDS += "litex-native"
 DEPENDS += "litex-boards-native"
 DEPENDS += "litex-pythondata-cpu-rocket-native"
 DEPENDS += "litex-pythondata-software-compiler-rt-native"
+DEPENDS += "litex-pythondata-software-picolibc-native"
 DEPENDS += "litedram-native"
 DEPENDS += "litesdcard-native"
 
