@@ -15,7 +15,12 @@ S = "${WORKDIR}/git"
 
 inherit deploy
 inherit litexnative
+inherit python3native
 inherit fpga
+
+# inhibit default deps, to exclude libc
+INHIBIT_DEFAULT_DEPS = "1"
+DEPENDS += "virtual/${HOST_PREFIX}gcc"
 
 DEPENDS += "meson-native ninja-native"
 DEPENDS += "yosys-native"
@@ -30,6 +35,10 @@ DEPENDS += "litedram-native"
 DEPENDS += "litesdcard-native"
 
 inherit setuptools3
+
+# disable any security flags set by security_flags.inc (e.g. poky distro)
+SECURITY_CFLAGS = "${SECURITY_NOPIE_CFLAGS}"
+SECURITY_LDFLAGS = ""
 
 do_compile() {
     ${S}/litex_boards/targets/lambdaconcept_ecpix5.py --build \
