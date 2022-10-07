@@ -5,7 +5,7 @@
 	#size-cells = <0x01>;
 
 	chosen {
-		bootargs = "mem=512M@0x40000000 rootwait console=liteuart earlycon=sbi root=/dev/ram0 init=/sbin/init swiotlb=32";
+		bootargs = "mem=512M@0x40000000 rootwait console=liteuart earlycon=sbi root=/dev/mmcblk0p2 init=/sbin/init swiotlb=32";
 		linux,initrd-start = <0x41000000>;
 		linux,initrd-end = <0x41800000>;
 	};
