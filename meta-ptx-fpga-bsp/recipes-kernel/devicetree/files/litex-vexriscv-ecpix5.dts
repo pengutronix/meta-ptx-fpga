@@ -48,6 +48,22 @@
 		};
 	};
 
+	vreg_mmc: vreg_mmc {
+		compatible = "regulator-fixed";
+		regulator-name = "vreg_mmc";
+		regulator-min-microvolt = <3300000>;
+		regulator-max-microvolt = <3300000>;
+		regulator-always-on;
+	};
+
+	clocks {
+		sys_clk: litex_sys_clk {
+			#clock-cells = <0>;
+			compatible = "fixed-clock";
+			clock-frequency = <50000000>;
+		};
+	};
+
 	soc {
 		#address-cells = <0x01>;
 		#size-cells = <0x01>;
@@ -103,8 +119,16 @@
 
 		mmc@f0006000 {
 			compatible = "litex,mmc";
-			reg = <0xf0006000 0x100 0xf0004800 0x100 0xf0004000 0x100 0xf0005800 0x100>;
+			reg = <0xf0006000 0x100>,
+			      <0xf0004800 0x100>,
+			      <0xf0004000 0x100>,
+			      <0xf0005800 0x100>,
+			      <0xf0005000 0x100>;
+			clocks = <&sys_clk>;
+			reg-names = "phy", "core", "reader", "writer", "irq";
 			bus-width = <0x04>;
+			vmmc-supply = <&vreg_mmc>;
+			interrupts = <0x03>;
 			status = "okay";
 		};
 
