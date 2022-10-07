@@ -1,0 +1,26 @@
+From f97833a03575a74e4adfaddd0e5274957082b758 Mon Sep 17 00:00:00 2001
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Mon, 5 Sep 2022 11:32:07 +0200
+Subject: [PATCH] HACK: enable wishbone_memory
+
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ litex/soc/cores/cpu/vexriscv_smp/core.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/litex/soc/cores/cpu/vexriscv_smp/core.py b/litex/soc/cores/cpu/vexriscv_smp/core.py
+index 60222462..82a43ef5 100755
+--- a/litex/soc/cores/cpu/vexriscv_smp/core.py
++++ b/litex/soc/cores/cpu/vexriscv_smp/core.py
+@@ -54,7 +54,7 @@ class VexRiscvSMP(CPU):
+     icache_width         = 32
+     aes_instruction      = False
+     out_of_order_decoder = True
+-    wishbone_memory      = False
++    wishbone_memory      = True
+     with_fpu             = False
+     cpu_per_fpu          = 4
+     with_rvc             = False
+-- 
+2.33.0
+

@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/BSD-2-Clause;md5=cb641bc04cda31
 SRC_URI = "\
 	git://github.com/strumtrar/litex-boards;protocol=https \
 "
-SRCREV = "master"
+SRCREV = "2022.04-ecpix5-wishbone"
 PV = "0+git${SRCPV}"
 
 S = "${WORKDIR}/git"
@@ -41,7 +41,9 @@ do_compile() {
         --cpu-type vexriscv_smp \
         --cpu-variant linux \
         --sys-clk-freq 50e6 \
+	--l2-size 2048 \
         --with-ethernet \
+        --with-wishbone-memory \
         --with-sdcard
 }
 
