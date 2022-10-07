@@ -1817,7 +1817,7 @@ CONFIG_MMC_SPI=y
 # CONFIG_MMC_CQHCI is not set
 # CONFIG_MMC_HSQ is not set
 # CONFIG_MMC_MTK is not set
-# CONFIG_MMC_LITEX is not set
+CONFIG_MMC_LITEX=y
 # CONFIG_MEMSTICK is not set
 # CONFIG_NEW_LEDS is not set
 # CONFIG_ACCESSIBILITY is not set
