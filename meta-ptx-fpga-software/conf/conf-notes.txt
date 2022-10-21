@@ -1,6 +1,6 @@
 Image targets are:
 
-	image-core-minimal
+	core-image-minimal
 
 The built SD card image contains the OpenSBI, Linux-Kernel and rootfs. The
 FPGA bitstream is built as a dependency, but not included in the SD card
