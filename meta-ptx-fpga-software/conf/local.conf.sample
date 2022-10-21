@@ -237,8 +237,8 @@ PACKAGECONFIG:append_pn-qemu-system-native = " sdl"
 #
 # A shared hash equivalent server can be set with "<HOSTNAME>:<PORT>" format
 #
-#BB_HASHSERVE = "auto"
-#BB_SIGNATURE_HANDLER = "OEEquivHash"
+#BB_HASHSERVE = ""
+#BB_SIGNATURE_HANDLER = "OEBasicHash"
 
 #
 # Memory Resident Bitbake
