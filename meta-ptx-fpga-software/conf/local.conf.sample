@@ -28,7 +28,7 @@ MACHINE ??= "ecpix5-vexriscv"
 #
 # The default is a downloads directory under TOPDIR which is the build directory.
 #
-#DL_DIR ?= "${TOPDIR}/downloads"
+#DL_DIR ?= "/ptx/src/yocto/<ftu>"
 
 #
 # Where to place shared-state files
