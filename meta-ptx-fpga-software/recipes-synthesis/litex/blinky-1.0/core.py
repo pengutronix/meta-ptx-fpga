@@ -15,7 +15,8 @@ class Blinky(Module, AutoCSR):
         counter= Signal(28)
 
         self.ledCtrl = CSRStorage(fields=[
-            CSRField("ena", size=1, description="Enable LED")
+            CSRField("ena", size=1, description="Enable LED"),
+            CSRField("write", size=1, description="Issue DMA Write")
         ])
         self.nreset = CSRStorage(1, fields=[
             CSRField("nReset", size=1, reset=1, description="Low-active Reset")
@@ -32,7 +33,7 @@ class Blinky(Module, AutoCSR):
         ]
         self.comb += [
             self.led.fields.status.eq(status),
-            self.counter.fields.counter.eq(counter)
+            self.counter.fields.counter.eq(counter),
         ]
         self.comb += pads.eq(status)
 

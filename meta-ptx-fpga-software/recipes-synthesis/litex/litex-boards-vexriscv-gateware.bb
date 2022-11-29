@@ -7,7 +7,7 @@ LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/BSD-2-Clause;md5=cb641bc04cda31
 SRC_URI = "\
 	git://github.com/strumtrar/litex-boards;protocol=https;branch=master \
 "
-SRCREV = "0776cb068219ce8252e1f6270f1ad93c29d85b11"
+SRCREV = "master"
 PV = "0+git${SRCPV}"
 
 S = "${WORKDIR}/git"
@@ -28,6 +28,7 @@ DEPENDS += "migen-native"
 DEPENDS += "litex-native"
 DEPENDS += "litex-boards-native"
 DEPENDS += "blinky-native"
+DEPENDS += "rotary-encoder-native"
 DEPENDS += "litedram-native"
 DEPENDS += "litesdcard-native"
 DEPENDS += "litex-pythondata-software-picolibc-native"
