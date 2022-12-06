@@ -5,7 +5,7 @@ LICENSE = "BSD-2-Clause"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/BSD-2-Clause;md5=cb641bc04cda31daea161b1bc15da69f"
 
 SRC_URI = "\
-	git://github.com/litex-hub/litex-boards;protocol=https \
+	git://github.com/litex-hub/litex-boards;protocol=https;branch=master \
 	file://0001-ecpix5-enable-dynamic-ip.patch \
 "
 SRCREV = "2022.04"
