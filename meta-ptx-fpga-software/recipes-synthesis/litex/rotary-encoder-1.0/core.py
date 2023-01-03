@@ -113,17 +113,11 @@ class Rotary_Encoder(Module, AutoCSR):
             self.direction.fields.direction.eq(direction)
         ]
 
-        self.pin_a = CSRStorage(1)
-        self.pin_b = CSRStorage(1)
-
-        self.comb += Pin_A.eq(self.pin_a.storage)
-        self.comb += Pin_B.eq(self.pin_b.storage)
-
         self.specials += Instance("rotary_encoder",
                                   i_clk = ClockSignal(),
                                   i_reset = reset,
-                                  i_A = Pin_A,
-                                  i_B = Pin_B,
+                                  i_A = A,
+                                  i_B = B,
                                   i_din = Din,
                                   o_dout = Dout,
                                   o_direction = direction,

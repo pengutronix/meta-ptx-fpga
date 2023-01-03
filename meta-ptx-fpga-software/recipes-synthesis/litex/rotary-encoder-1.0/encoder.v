@@ -6,7 +6,7 @@ module rotary_encoder(
 		      input						 B,
 		      input						 reset,
 		      input wire [4:0] din,
-		      output reg [4:0] dout,
+		      output wire [4:0] dout,
 		      output reg			 direction,
 					output wire			 update
 		      );
@@ -14,6 +14,7 @@ module rotary_encoder(
     reg [1:0]				       sync, AB;
     reg [1:0]				       cs;
     wire [1:0]				       tmp, ns;
+    reg [6:0]	signal;
 
     // sync/debounce
     always @(posedge clk) begin
@@ -27,19 +28,21 @@ module rotary_encoder(
     assign ns = tmp - cs;
 		assign update = ns[0];
 
+    assign dout = signal >> 2;
+
     always @(posedge clk) begin
         if(reset) begin
-						dout <= din;
+						signal <= din;
 						cs <= 0;
         end else
 						if(ns[0] == 1'b1)
                 begin
 										cs <= cs + ns; // set current state to old state
 										if (ns[1] == 1'b1) begin
-                        dout <= dout - 1'b1;
+                        signal <= signal - 1'b1;
 												direction <= 1'b0;
 										end else begin
-                        dout <= dout + 1'b1;
+                        signal <= signal + 1'b1;
 												direction <= 1'b1;
 										end
 								end
