@@ -6,6 +6,7 @@ inherit deploy
 inherit fpga
 
 DEPENDS += "${@fpga_family_depends(d)}"
+DEPENDS += "dtc-native"
 DEPENDS += "litex-boards-vexriscv-software"
 DEPENDS += "litex-boards-vexriscv-gateware"
 
@@ -16,8 +17,6 @@ do_compile () {
 
    cd ${STAGING_DIR_TARGET}/usr/share/gateware/
 
-   pwd
-
    ecpbram -v -i lambdaconcept_ecpix5.config -o lambdaconcept_ecpix5_update.config \
 	--from mem.init --to software.init
 
@@ -25,12 +24,16 @@ do_compile () {
 	  --svf lambdaconcept_ecpix5.svf \
 	  --bit lambdaconcept_ecpix5.bit \
 	  --bootaddr 0
+
+   dtc -I dts -O dtb -o ${B}/litex-vexriscv-ecpix5.dtb ${STAGING_DIR_TARGET}/usr/share/software/litex-vexriscv-ecpix5.dts
 }
 
 do_deploy () {
 	cd ${STAGING_DIR_TARGET}/usr/share/gateware
 	install -Dm 0644 lambdaconcept_ecpix5.bit ${DEPLOYDIR}/ptxsoc.bit
 	install -Dm 0644 lambdaconcept_ecpix5.svf ${DEPLOYDIR}/ptxsoc.svf
+	cd ${B}
+	install -Dm 0644 litex-vexriscv-ecpix5.dtb ${DEPLOYDIR}/litex-vexriscv-ecpix5.dtb
 
 	# HACK: The boot.json describes where the LiteX bios puts the binaries
 	# that is loads. It would be better, to generate it with the image,

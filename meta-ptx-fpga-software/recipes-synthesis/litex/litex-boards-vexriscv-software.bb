@@ -47,7 +47,10 @@ do_compile() {
 	--l2-size 2048 \
         --with-ethernet \
         --with-wishbone-memory \
-        --with-sdcard
+        --with-sdcard \
+	--csr-json build/csr.json
+
+   ${STAGING_DIR_NATIVE}/usr/bin/litex_json2dts_linux ${B}/build/csr.json > ${B}${build}/litex-vexriscv-ecpix5.dts
 }
 
 do_install() {
@@ -56,5 +59,8 @@ do_install() {
    # The mem.init contains the LiteX bios as ROM code, which can be used to
    # update the mem.init of an existing bitstream.
    install ${B}/build/lambdaconcept_ecpix5/gateware/mem.init ${D}${datadir}/software
+   install ${B}/build/csr.json ${D}${datadir}/software
+
+   install ${B}${build}/litex-vexriscv-ecpix5.dts ${D}${datadir}/software
 }
 FILES:${PN} = "${datadir}/software"
