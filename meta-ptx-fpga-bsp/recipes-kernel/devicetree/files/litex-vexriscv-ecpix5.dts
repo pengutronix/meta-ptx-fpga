@@ -13,18 +13,32 @@
 	cpus {
 		#address-cells = <0x01>;
 		#size-cells = <0x00>;
-		timebase-frequency = <0x2faf080>;
+		timebase-frequency = <50000000>;
 
 		cpu@0 {
 			device_type = "cpu";
 			compatible = "riscv";
 			riscv,isa = "rv32ima";
 			mmu-type = "riscv,sv32";
-			reg = <0x00>;
-			clock-frequency = <0x2faf080>;
+			reg = <0x0>;
+			clock-frequency = <50000000>;
 			status = "okay";
 
-			interrupt-controller {
+			d-cache-size = <4096>;
+			d-cache-sets = <1>;
+			d-cache-block-size = <64>;
+
+			i-cache-size = <4096>;
+			i-cache-sets = <1>;
+			i-cache-block-size = <64>;
+
+			d-tlb-size = <4>;
+			d-tlb-sets = <4>;
+
+			i-tlb-size = <4>;
+			i-tlb-sets = <4>;
+
+			L0: interrupt-controller {
 				#interrupt-cells = <0x01>;
 				interrupt-controller;
 				compatible = "riscv,cpu-intc";
@@ -78,13 +92,13 @@
 			status = "okay";
 		};
 
-		interrupt-controller@f0c00000 {
-			compatible = "sifive,fu540-c000-plic\0sifive,plic-1.0.0";
+		intc: interrupt-controller@f0c00000 {
+			compatible = "sifive,fu540-c000-plic", "sifive,plic-1.0.0";
 			reg = <0xf0c00000 0x400000>;
 			#address-cells = <0x00>;
 			#interrupt-cells = <0x01>;
 			interrupt-controller;
-			interrupts-extended = <0x02 0x0b 0x02 0x09>;
+			interrupts-extended = <&L0 11 &L0 9>;
 			riscv,ndev = <0x20>;
 			phandle = <0x01>;
 		};
@@ -96,9 +110,11 @@
 			status = "okay";
 		};
 
-		mac@f0002000 {
+		mac@f0002800 {
 			compatible = "litex,liteeth";
-			reg = <0xf0002000 0x7c 0xf0002800 0x0a 0xb0000000 0x2000>;
+			reg = <0xf0002800 0x7c>,
+			      <0xf0003000 0x0a>,
+			      <0x80000000 0x2000>;
 			tx-fifo-depth = <0x02>;
 			rx-fifo-depth = <0x02>;
 			interrupts = <0x02>;
@@ -117,17 +133,17 @@
 			};
 		};
 
-		mmc@f0006000 {
+		mmc@f0008800 {
 			compatible = "litex,mmc";
-			reg = <0xf0006000 0x100>,
-			      <0xf0004800 0x100>,
+			reg = <0xf0008800 0x100>,
+			      <0xf0007000 0x100>,
 			      <0xf0004000 0x100>,
-			      <0xf0005800 0x100>,
-			      <0xf0005000 0x100>;
-			clocks = <&sys_clk>;
+			      <0xf0008000 0x100>,
+			      <0xf0007800 0x100>;
 			reg-names = "phy", "core", "reader", "writer", "irq";
-			bus-width = <0x04>;
+			clocks = <&sys_clk>;
 			vmmc-supply = <&vreg_mmc>;
+			bus-width = <0x04>;
 			interrupts = <0x03>;
 			status = "okay";
 		};
