@@ -29,13 +29,13 @@ class Rotary_Encoder(Module, AutoCSR):
         self.dout = CSRStatus(5, fields=[
             CSRField("dout", size=5, description="Current value")])
         self.rgb = CSRStorage(24, fields=[
-            CSRField("rgb", size=24, description="LED RGB value")])
+            CSRField("rgb", reset=0x3344, size=24, description="LED RGB value")])
         self.direction = CSRStatus(1, fields=[
             CSRField("direction", size=1, description="Current direction (0=down,1=up)")])
 
-        self.dma_ctrl = CSRStorage(2, fields=[
+        self.dma_ctrl = CSRStorage(2, reset=0x2, fields=[
             CSRField("reset", size=1, reset=0, description="Reset DMA Engine"),
-            CSRField("run", size=1, description="Start DMA Engine")])
+            CSRField("run", reset=1, size=1, description="Start DMA Engine")])
         self.dma_status = CSRStatus(32, description = "DMA Status", fields = [
             CSRField(name="idle", size=1, description="DMA Idle"),
             CSRField(name="write", size=1, description="DMA Write"),
@@ -43,7 +43,7 @@ class Rotary_Encoder(Module, AutoCSR):
         ]);
 
         # DMA Engine
-        self.dma_addr = CSRStorage(32, atomic_write=True)
+        self.dma_addr = CSRStorage(32, reset=0x20000000, atomic_write=True)
 
         shift = log2_int(self.bus.data_width//8)
         dma_addr_base = Signal(self.bus.adr_width)
