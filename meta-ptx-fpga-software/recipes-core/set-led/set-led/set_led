@@ -1,0 +1,13 @@
+#!/bin/sh
+
+B=0x66000000
+R=0x00660000
+B=0x00006600
+
+if [ $1 == "R" ]; then
+        devmem2 0xf000200c w $R
+elif [ $1 == "G" ]; then
+        devmem2 0xf000200c w $G
+elif [ $1 == "B" ]; then
+        devmem2 0xf000200c w $B
+fi
