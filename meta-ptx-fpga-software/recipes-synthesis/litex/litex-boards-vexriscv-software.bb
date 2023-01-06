@@ -50,7 +50,7 @@ do_compile() {
         --with-sdcard \
 	--csr-json build/csr.json
 
-   ${STAGING_DIR_NATIVE}/usr/bin/litex_json2dts_linux ${B}/build/csr.json > ${B}${build}/litex-vexriscv-ecpix5.dts
+   ${STAGING_DIR_NATIVE}/usr/bin/litex_json2dts_linux --root-device mmcblk0p2 --initrd disabled ${B}/build/csr.json > ${B}${build}/litex-vexriscv-ecpix5.dts
 }
 
 do_install() {
