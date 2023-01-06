@@ -1,0 +1,10 @@
+#!/bin/sh
+
+while true; do
+        set_led R
+        stress-ng --fork 4 --timeout 10s
+        set_led G
+        stress-ng --fork 4 --timeout 10s
+        set_led B
+        stress-ng --fork 4 --timeout 10s
+done
