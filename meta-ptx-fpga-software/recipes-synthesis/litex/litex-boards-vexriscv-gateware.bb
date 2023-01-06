@@ -63,7 +63,6 @@ do_compile() {
         --um5g-85k \
         --package CABGA554 \
         --speed 8 \
-        --timing-allow-fail \
         --seed 1
 
    ${STAGING_DIR_NATIVE}/usr/bin/litex_json2dts_linux --root-device mmcblk0p2 --initrd disabled ${B}/build/csr.json > ${B}${build}/litex-vexriscv-ecpix5.dts
