@@ -49,7 +49,8 @@ do_compile() {
 	--l2-size 2048 \
         --with-ethernet \
         --with-wishbone-memory \
-        --with-sdcard
+        --with-sdcard \
+	--csr-json build/csr.json
 
     cd ${B}/build/lambdaconcept_ecpix5/gateware
 
@@ -64,12 +65,17 @@ do_compile() {
         --speed 8 \
         --timing-allow-fail \
         --seed 1
+
+   ${STAGING_DIR_NATIVE}/usr/bin/litex_json2dts_linux --root-device mmcblk0p2 --initrd disabled ${B}/build/csr.json > ${B}${build}/litex-vexriscv-ecpix5.dts
 }
 
 do_install() {
 	install -d ${D}${datadir}/gateware
 
 	install ${B}/build/lambdaconcept_ecpix5/gateware/* ${D}${datadir}/gateware
+	install ${B}/build/csr.json ${D}${datadir}/gateware
+
+	install ${B}${build}/litex-vexriscv-ecpix5.dts ${D}${datadir}/gateware
 }
 
 FILES:${PN} = "${datadir}/gateware"

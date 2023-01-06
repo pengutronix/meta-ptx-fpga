@@ -25,7 +25,7 @@ do_compile () {
 	  --bit lambdaconcept_ecpix5.bit \
 	  --bootaddr 0
 
-   dtc -I dts -O dtb -o ${B}/litex-vexriscv-ecpix5.dtb ${STAGING_DIR_TARGET}/usr/share/software/litex-vexriscv-ecpix5.dts
+   dtc -I dts -O dtb -o ${B}/litex-vexriscv-ecpix5.dtb ${STAGING_DIR_TARGET}/usr/share/gateware/litex-vexriscv-ecpix5.dts
 }
 
 do_deploy () {
