@@ -38,7 +38,7 @@ SECURITY_CFLAGS = "${SECURITY_NOPIE_CFLAGS}"
 SECURITY_LDFLAGS = ""
 
 do_compile() {
-    ${S}/litex_boards/targets/lambdaconcept_ecpix5.py \
+    ${S}/litex_boards/targets/ptx_ecpix5.py \
         --no-compile-gateware \
         --gateware-dir build/lambdaconcept_ecpix5/gateware \
         --cpu-type vexriscv_smp \
@@ -46,6 +46,8 @@ do_compile() {
         --sys-clk-freq 50e6 \
 	--l2-size 2048 \
         --with-ethernet \
+        --with-ws2812 \
+        --with-rotary \
         --with-wishbone-memory \
         --with-sdcard
 }
