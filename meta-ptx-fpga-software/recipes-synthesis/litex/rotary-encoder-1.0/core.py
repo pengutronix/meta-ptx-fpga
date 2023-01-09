@@ -28,7 +28,7 @@ class Rotary_Encoder(Module, AutoCSR):
             CSRField("din", size=5, description="Start value")])
         self.dout = CSRStatus(5, fields=[
             CSRField("dout", size=5, description="Current value")])
-        self.rgb = CSRStorage(24, fields=[
+        self.rgb = CSRStorage(32, fields=[
             CSRField("rgb", reset=0x3344, size=32, description="LED RGB value")])
         self.direction = CSRStatus(1, fields=[
             CSRField("direction", size=1, description="Current direction (0=down,1=up)")])
