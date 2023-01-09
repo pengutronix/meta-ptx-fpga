@@ -1,6 +1,6 @@
 SUMMARY = "Helper script to set LEDs for FPGA demo"
 LICENSE = "0BSD"
-LIC_FILES_CHKSUM = "file://set_led;beginline=1;endline=13;md5=18651c67a41fb88fa19bcf885b20737c"
+LIC_FILES_CHKSUM = "file://set_led;beginline=1;endline=13;md5=a357fc47cae81bc4dec6fc11352b2882"
 
 PACKAGE_ARCH = "${MACHINE_ARCH}"
 
