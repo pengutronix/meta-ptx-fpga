@@ -24,7 +24,8 @@
 
 case "$1" in
   start)
-    shutdown -r +2 &
+    stress_demo &
+    top &
   ;;
 
   stop)
