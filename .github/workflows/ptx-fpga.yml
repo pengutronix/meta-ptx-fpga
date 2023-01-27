@@ -1,0 +1,58 @@
+name: meta-ptx-fpga CI
+
+on:
+  # Trigger the workflow on push or pull request,
+  # but only for the master branch
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: meta-ptx-fpga Build
+    runs-on: ubuntu-20.04
+    timeout-minutes: 720
+    steps:
+      - name: Install required packages
+        run: |
+          sudo apt-get install diffstat
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          path: meta-ptx-fpga
+      - name: Clone poky
+        run: git clone -b kirkstone git://git.yoctoproject.org/poky
+      - name: Clone meta-openembedded
+        run: git clone -b kirkstone https://github.com/openembedded/meta-openembedded.git
+      - name: Clone meta-hdl
+        run: git clone -b master https://github.com/nathanrossi/meta-hdl.git
+      - name: Clone meta-riscv
+        run: git clone -b kirkstone https://github.com/riscv/meta-riscv.git
+      - name: Initialize build directory
+        run: |
+          source poky/oe-init-build-env build
+          bitbake-layers add-layer ../meta-openembedded/meta-oe
+          bitbake-layers add-layer ../meta-openembedded/meta-python
+          bitbake-layers add-layer ../meta-riscv 
+          bitbake-layers add-layer ../meta-hdl
+          bitbake-layers add-layer ../meta-ptx-fpga
+          echo 'INHERIT += "rm_work"' >> conf/local.conf
+          echo 'SSTATE_MIRRORS = "file://.* http://195.201.147.117/sstate-cache/PATH"' >> conf/local.conf
+      - name: Build VeXRiscv
+        run: |
+          source poky/oe-init-build-env build
+          MACHINE=ecpix5-vexriscv bitbake core-image-minimal
+      - name: Build Rocket
+        run: |
+          source poky/oe-init-build-env build
+          MACHINE=ecpix5-rocket bitbake core-image-minimal
+          
+      # Upload
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ecpix5
+          path: build/tmp/deploy/images/*/
