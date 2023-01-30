@@ -21,7 +21,6 @@ jobs:
         with:
           path: |
             build/sstate-cache
-            build/downloads
           key: ${{ runner.os }}-sstate-${{ hashFiles('**/build/sstate-cache') }}
           restore-keys: |
             ${{ runner.os }}-sstate-
