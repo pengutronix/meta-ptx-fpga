@@ -47,11 +47,7 @@ jobs:
       - name: Build VeXRiscv
         run: |
           source poky/oe-init-build-env build
-          MACHINE=ecpix5-vexriscv bitbake core-image-minimal
-      - name: Build Rocket
-        run: |
-          source poky/oe-init-build-env build
-          MACHINE=ecpix5-rocket bitbake core-image-minimal
+          MACHINE=ecpix5-vexriscv bitbake litex
           
       # Upload
       - name: Upload Artifacts
