@@ -10,8 +10,6 @@ BBLAYERS ?= " \
   ##OEROOT##/meta-poky \
   ##OEROOT##/../meta-openembedded/meta-oe \
   ##OEROOT##/../meta-openembedded/meta-python \
-  ##OEROOT##/../meta-riscv \
   ##OEROOT##/../meta-hdl \
-  ##OEROOT##/../meta-ptx-fpga-bsp \
-  ##OEROOT##/../meta-ptx-fpga-software \
+  ##OEROOT##/../meta-ptx-fpga \
   "
