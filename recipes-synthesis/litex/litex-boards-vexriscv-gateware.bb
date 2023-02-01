@@ -39,6 +39,7 @@ SECURITY_LDFLAGS = ""
 do_compile() {
     ${S}/ptx_ecpix5.py \
         --no-compile-software \
+	--build \
         --cpu-type vexriscv_smp \
         --cpu-variant linux \
         --sys-clk-freq 50e6 \

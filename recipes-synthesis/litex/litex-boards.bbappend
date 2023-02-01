@@ -1,5 +1,5 @@
-SRC_URI = "\
-	git://github.com/strumtrar/litex-boards;protocol=https;branch=master \
-"
-SRCREV = "master"
-PV = "0+git${SRCPV}"
+LIC_FILES_CHKSUM = "file://LICENSE;md5=44c881049d568ad42c4c81ed51fa6515"
+
+SRCREV = "2022.12"
+SRCPV = "2022.12"
+PV = "2022.12+git${SRCPV}"

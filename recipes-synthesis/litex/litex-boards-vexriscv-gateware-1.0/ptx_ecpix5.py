@@ -17,7 +17,7 @@ from litex.build.lattice.trellis import trellis_args, trellis_argdict
 from litex.soc.cores.cpu.vexriscv_smp import VexRiscvSMP
 
 class PtxSoC(lc_ecpix5.BaseSoC):
-    def __init__(self, device="85F", sys_clk_freq=int(75e6),
+    def __init__(self, device="85F", sys_clk_freq=75e6, toolchain="trellis",
         with_ethernet          = False,
         with_led_chaser        = False,
         with_ws2812            = True,
@@ -32,7 +32,7 @@ class PtxSoC(lc_ecpix5.BaseSoC):
         kwargs["l2_size"] = 2048
 
         # SoCCore ----------------------------------------------------------------------------------
-        super().__init__(device, sys_clk_freq, with_ethernet, with_led_chaser, **kwargs)
+        super().__init__(device, sys_clk_freq, toolchain=toolchain, **kwargs)
 
         if with_ws2812:
             from litex.build.generic_platform import Pins, IOStandard
@@ -117,22 +117,24 @@ class PtxSoC(lc_ecpix5.BaseSoC):
 
         self.init_rom(name="rom", contents=data, auto_size=True)
 
-        # Save actual expected contents for future use as gateware/mem.init
-        content = ""
-        formatter = "{:0" + str(int(self.rom.mem.width / 4)) + "X}\n"
-        for d in data:
-            content += formatter.format(d).zfill(int(self.rom.mem.width / 4))
-        romfile = os.open(os.path.join(self.gateware_dir, "mem.init"), os.O_WRONLY | os.O_CREAT)
-        os.write(romfile, content.encode())
-        os.close(romfile)
+        if args.gateware_dir:
+            # Save actual expected contents for future use as gateware/mem.init
+            content = ""
+            formatter = "{:0" + str(int(self.rom.mem.width / 4)) + "X}\n"
+            for d in data:
+                content += formatter.format(d).zfill(int(self.rom.mem.width / 4))
+            if not os.path.exists(args.gateware_dir):
+                os.makedirs(args.gateware_dir)
+            romfile = os.open(os.path.join(self.gateware_dir, "mem.init"), os.O_WRONLY | os.O_CREAT)
+            os.write(romfile, content.encode())
+            os.close(romfile)
 
 def main():
-    from litex.soc.integration.soc import LiteXSoCArgumentParser
-    parser = LiteXSoCArgumentParser(description="LiteX SoC on ECPIX-5")
+    from litex.build.parser import LiteXArgumentParser
+    parser = LiteXArgumentParser(platform=lambdaconcept_ecpix5.Platform, description="LiteX SoC on ECPIX-5.")
     target_group = parser.add_argument_group(title="Target options")
-    target_group.add_argument("--build",           action="store_true", help="Build bitstream.")
     target_group.add_argument("--device",          default="85F",       help="ECP5 device (45F or 85F).")
-    target_group.add_argument("--sys-clk-freq",    default=75e6,        help="System clock frequency.")
+    target_group.add_argument("--sys-clk-freq",    default=75e6, type=float, help="System clock frequency.")
     target_group.add_argument("--with-sdcard",     action="store_true", help="Enable SDCard support.")
     target_group.add_argument("--with-blinky",     action="store_true", help="Enable Blinky support.")
     target_group.add_argument("--with-ws2812",     action="store_true", help="Enable WS2812 support.")
@@ -140,33 +142,28 @@ def main():
     ethopts = target_group.add_mutually_exclusive_group()
     ethopts.add_argument("--with-ethernet",  action="store_true", help="Enable Ethernet support.")
 
-    builder_args(parser)
-    soc_core_args(parser)
-    trellis_args(parser)
-    VexRiscvSMP.args_fill(parser)
     args = parser.parse_args()
 
     soc = PtxSoC(
         device                 = args.device,
-        sys_clk_freq           = int(float(args.sys_clk_freq)),
+        sys_clk_freq           = args.sys_clk_freq,
+        toolchain              = args.toolchain,
         with_ethernet          = args.with_ethernet,
         with_blinky            = args.with_blinky,
         with_ws2812            = args.with_ws2812,
         with_rotary            = args.with_rotary,
         with_led_chaser        = False,
-        **soc_core_argdict(args)
+        **parser.soc_argdict
     )
     if args.with_sdcard:
         soc.add_sdcard()
 
-    args.with_wishbone_memory = True
-
-    VexRiscvSMP.args_read(args)
-    builder = Builder(soc, **builder_argdict(args))
-    soc.set_gateware_dir(builder.gateware_dir)
-    builder.build(**trellis_argdict(args), run=args.build)
-
-    soc.initialize_rom([], args)
+    builder = Builder(soc, **parser.builder_argdict)
+    if args.build:
+        builder.build(**parser.toolchain_argdict)
+    if args.gateware_dir:
+        soc.set_gateware_dir(builder.gateware_dir)
+        soc.initialize_rom([], args)
 
 if __name__ == "__main__":
     main()
