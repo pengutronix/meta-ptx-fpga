@@ -15,7 +15,6 @@ other layers needed. e.g.::
     /path/to/yocto/meta-poky \
     /path/to/yocto/meta-openembedded/meta-oe \
     /path/to/yocto/meta-openembedded/meta-python \
-    /path/to/yocto/meta-riscv \
     /path/to/yocto/meta-hdl \
     /path/to/yocto/meta-ptx-fpga \
     "
@@ -24,9 +23,6 @@ Dependencies
 ============
 
 This layer depends on::
-
-   URI: git@github.com:riscv/meta-riscv
-   branch: kirkstone
 
    URI: git@github.com:nathanrossi/meta-hdl
    branch: master
