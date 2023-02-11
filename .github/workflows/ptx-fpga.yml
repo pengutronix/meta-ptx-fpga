@@ -44,11 +44,15 @@ jobs:
           bitbake-layers add-layer ../meta-hdl
           bitbake-layers add-layer ../meta-ptx-fpga
           echo 'INHERIT += "rm_work"' >> conf/local.conf
-      - name: Build VeXRiscv
+      - name: Build VeXRiscv Bitstream
         run: |
           source poky/oe-init-build-env build
           MACHINE=ecpix5-vexriscv bitbake ptxsoc-vexriscv
-          
+      - name: Build VeXRiscv Image
+        run: |
+          source poky/oe-init-build-env build
+          MACHINE=ecpix5-vexriscv bitbake core-image-minimal
+      
       # Upload
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
