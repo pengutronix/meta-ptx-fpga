@@ -6,7 +6,7 @@ LICENSE = "BSD-2-Clause"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/BSD-2-Clause;md5=cb641bc04cda31daea161b1bc15da69f"
 
 SRC_URI = "\
-    git://github.com/litex-hub/linux-on-litex-rocket;protocol=https \
+    git://github.com/litex-hub/linux-on-litex-rocket;protocol=https;branch=master \
 "
 SRCREV = "af07b00d26a9594fbf31c158dd20a3c0008456d5"
 PV = "0+git${SRCPV}"
