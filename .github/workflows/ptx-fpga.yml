@@ -57,5 +57,12 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: ecpix5
-          path: build/tmp/deploy/images/*/
+          name: ecpix5-vexriscv
+          path: |
+            build/tmp/deploy/images/ecpix5-vexriscv/*.bit
+            build/tmp/deploy/images/ecpix5-vexriscv/*.svf
+            build/tmp/deploy/images/ecpix5-vexriscv/*.wic
+            build/tmp/deploy/images/ecpix5-vexriscv/boot.json
+            build/tmp/deploy/images/ecpix5-vexriscv/Image*
+            build/tmp/deploy/images/ecpix5-vexriscv/*.dtb
+            build/tmp/deploy/images/ecpix5-vexriscv/fw_jump.bin
