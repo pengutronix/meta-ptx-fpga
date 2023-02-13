@@ -39,9 +39,11 @@ SECURITY_LDFLAGS = ""
 do_compile() {
     ${S}/ptx_ecpix5.py \
         --no-compile-software \
+        --gateware-dir build/lambdaconcept_ecpix5/gateware \
 	--build \
         --cpu-type vexriscv_smp \
         --cpu-variant linux \
+        --cpu-count 1 \
         --sys-clk-freq 50e6 \
 	--l2-size 2048 \
         --with-ethernet \
