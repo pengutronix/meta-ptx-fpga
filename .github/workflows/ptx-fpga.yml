@@ -36,6 +36,10 @@ jobs:
           git clone -b kirkstone git://git.yoctoproject.org/poky
           git clone -b kirkstone https://github.com/openembedded/meta-openembedded.git
           git clone -b master https://github.com/nathanrossi/meta-hdl.git
+          cd meta-hdl
+          git show
+          cd ..
+          
       - name: Initialize build directory
         run: |
           source poky/oe-init-build-env build
